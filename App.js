@@ -1,12 +1,18 @@
-console.log("going")
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import MapView from 'react-native-maps';
 import {
   createStackNavigator,
 } from 'react-navigation';
+import FetchLocation from './components/FetchLocation';
 
 export default class App extends React.Component {
+  getUserLocationHander = () => {
+    navigator.geolocation.getCurrentPosition(position => {
+      console.log(position)
+    }, err => console.log(err));
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -28,8 +34,11 @@ export default class App extends React.Component {
           />
         </MapView>
         <View style={styles.footer}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>{alert("clicked me")}}>
             <Image source={require("./images/calendar.png")}/>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Image source={require("./images/car.png")}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -53,12 +62,15 @@ const styles = StyleSheet.create({
     zIndex: 0,
   },
   footer: {
-    height: 85,
+    width: '100%',
+    height: 150,
     position: 'absolute',
     left: 0,
     bottom: 0,
     display: 'flex',
     flexDirection: 'row',
     zIndex: 1,
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
   }
 });
